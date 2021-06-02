@@ -174,11 +174,13 @@ const Game: React.FC<Props> = ({ topic, difficultyLevel, restart }: Props) => {
               />
             ))}
           </Game__answers>
-          {userAnswers.length == index + 1 && !gameOver && (
-            <button className="btn" onClick={() => setIndex(index + 1)}>
-              Next Question
-            </button>
-          )}
+          {userAnswers.length == index + 1 &&
+            index !== totalQuestions - 1 &&
+            !gameOver && (
+              <button className="btn" onClick={() => setIndex(index + 1)}>
+                Next Question
+              </button>
+            )}
           {gameOver && <Button text="Start new game" onClick={restart} />}
         </>
       )}
