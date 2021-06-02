@@ -4,7 +4,7 @@ import { theme, breakpoint } from "../styles";
 import axios from "axios";
 import Option from "./Option";
 import Button from "./Button";
-import Loader from "react-loader-spinner";
+import ClipLoader from "react-spinners/ClipLoader";
 import { shuffle } from "../utils";
 
 interface Props {
@@ -80,6 +80,10 @@ const Game__answers = styled.div`
   }
 `;
 
+const Loader = styled.div`
+  margin: 4rem auto;
+`;
+
 const Game: React.FC<Props> = ({ topic, difficultyLevel, restart }: Props) => {
   const totalQuestions = 10;
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -145,7 +149,9 @@ const Game: React.FC<Props> = ({ topic, difficultyLevel, restart }: Props) => {
   return (
     <Game__container>
       {loading && (
-        <Loader type="Puff" color={theme.primary3} height={300} width={100} />
+        <Loader>
+          <ClipLoader color={theme.primary3} size={200} />
+        </Loader>
       )}
       {!loading && (
         <>
