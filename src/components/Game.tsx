@@ -88,9 +88,10 @@ const Game: React.FC<Props> = ({ topic, difficultyLevel, restart }: Props) => {
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
   const [timer, setTimer] = useState<number>(90);
+  const [gameOver, setGameOver] = useState<boolean>(false);
 
   const checkAnswer = (answer: string) => {
-    if (userAnswers.length < index + 1) {
+    if (userAnswers.length < index + 1 && !gameOver) {
       setUserAnswers([...userAnswers, answer]);
       if (answer === questions[index].correct_answer) {
         setScore(score + 1);
@@ -129,7 +130,10 @@ const Game: React.FC<Props> = ({ topic, difficultyLevel, restart }: Props) => {
   }, [questions]);
 
   useEffect(() => {
-    if (userAnswers.length == totalQuestions || timer == 0) return;
+    if (userAnswers.length == totalQuestions || timer == 0) {
+      setGameOver(true);
+      return;
+    }
 
     const time = setInterval(() => setTimer(timer - 1), 1000);
 
@@ -159,27 +163,23 @@ const Game: React.FC<Props> = ({ topic, difficultyLevel, restart }: Props) => {
             />
           </div>
           <Game__answers>
-            {questions[index]?.answers.map((answer, idx) => (
+            {questions[index]?.answers.map((answer) => (
               <Option
-                key={idx}
+                key={answer}
                 content={answer}
-                userAnswered={userAnswers.length == index + 1}
+                isDisabled={userAnswers.length == index + 1 || gameOver}
                 clickedOn={answer == userAnswers[index]}
                 correct={answer === questions[index].correct_answer}
                 onClick={() => checkAnswer(answer)}
               />
             ))}
           </Game__answers>
-          {userAnswers.length == index + 1 &&
-            index !== totalQuestions - 1 &&
-            timer !== 0 && (
-              <button className="btn" onClick={() => setIndex(index + 1)}>
-                Next Question
-              </button>
-            )}
-          {(userAnswers.length == totalQuestions || timer == 0) && (
-            <Button text="Start new game" onClick={restart} />
+          {userAnswers.length == index + 1 && !gameOver && (
+            <button className="btn" onClick={() => setIndex(index + 1)}>
+              Next Question
+            </button>
           )}
+          {gameOver && <Button text="Start new game" onClick={restart} />}
         </>
       )}
     </Game__container>
