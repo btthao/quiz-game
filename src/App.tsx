@@ -64,6 +64,7 @@ const AppWrapper = styled.div`
     font-size: 1.4rem;
     margin: 0.5rem auto;
     text-decoration: underline;
+    color: ${theme.primary4};
   }
 `;
 
@@ -74,7 +75,7 @@ const CardWrapper = styled.div`
   padding: 1.5rem 1rem;
   @media ${breakpoint.mobileL} {
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1rem;
+    grid-gap: 1.2rem;
   }
 `;
 

@@ -28,7 +28,11 @@ interface Question {
   answers: string[];
 }
 
-const Game__container = styled.div`
+interface TimerProps {
+  show: boolean;
+}
+
+const Game__container = styled.div<TimerProps>`
   width: 100%;
   padding: 1rem 0;
   .score {
@@ -54,7 +58,8 @@ const Game__container = styled.div`
   }
 
   .timer {
-    color: ${theme.primary3};
+    display: ${({ show }) => (show ? "block" : "none")};
+    color: ${theme.primary4};
     font-size: 1.1rem;
     margin: 1rem auto;
   }
@@ -64,6 +69,7 @@ const Game__container = styled.div`
     color: ${theme.primary3};
     font-weight: 700;
     font-size: 1.5rem;
+    margin: 0.8rem auto;
   }
 `;
 
@@ -147,7 +153,7 @@ const Game: React.FC<Props> = ({ topic, difficultyLevel, restart }: Props) => {
   }, [timer]);
 
   return (
-    <Game__container>
+    <Game__container show={!gameOver}>
       {loading && (
         <Loader>
           <ClipLoader color={theme.primary3} size={200} />
@@ -159,9 +165,7 @@ const Game: React.FC<Props> = ({ topic, difficultyLevel, restart }: Props) => {
             Score: <span>{score}</span>
           </p>
           <p className="timer">Time left: {timer}</p>
-          {(userAnswers.length == totalQuestions || timer == 0) && (
-            <p className="gameOver">Game Over</p>
-          )}
+          {gameOver && <p className="gameOver">Game Over</p>}
           <div className="question">
             <p>Question: {index + 1}</p>
             <p
@@ -171,7 +175,7 @@ const Game: React.FC<Props> = ({ topic, difficultyLevel, restart }: Props) => {
           <Game__answers>
             {questions[index]?.answers.map((answer) => (
               <Option
-                key={answer}
+                key={answer + index}
                 content={answer}
                 isDisabled={userAnswers.length == index + 1 || gameOver}
                 clickedOn={answer == userAnswers[index]}

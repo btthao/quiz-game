@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { theme, neumorphism } from "../styles";
+import { theme, breakpoint, neumorphism } from "../styles";
 
 const appear = keyframes`
   from { 
@@ -39,12 +39,19 @@ const Option__container = styled.button<OptionProps>`
   &:disabled {
     color: gray;
     cursor: auto;
+    pointer-events: none;
     border: ${({ correct, clicked }) =>
       correct
         ? `0.1rem solid ${theme.primary1}`
         : clicked && !correct
         ? `0.1rem solid ${theme.primary2}`
         : "0.1rem solid gray"};
+  }
+  @media ${breakpoint.desktop} {
+    &:hover {
+      background: ${theme.primary3};
+      color: ${theme.dark};
+    }
   }
 `;
 

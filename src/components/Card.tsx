@@ -22,7 +22,6 @@ const Card__container = styled.button<CardProps>`
   ${neumorphism}
   background: ${({ current }) => current && theme.primary3};
   @media ${breakpoint.mobileL} {
-    font-size: 0.9rem;
     padding: 0.7rem;
   }
   @media ${breakpoint.desktop} {

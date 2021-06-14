@@ -1,11 +1,12 @@
 import { css } from "styled-components";
 
 export const theme = {
-  dark: "#293147",
+  dark: "#171c27",
   primary1: "#46be74",
   primary2: "#dd655f",
-  primary3: "#03D3F6",
-  light: "#8D91BD",
+  primary3: "#10eebe",
+  primary4: "#d9b08c",
+  light: "#d1e8e2",
 };
 
 export const breakpoint = {
@@ -18,6 +19,6 @@ export const breakpoint = {
 
 export const neumorphism = css`
   border-radius: 26px;
-  background: linear-gradient(145deg, #252c40, #2c344c);
-  box-shadow: 3px 3px 20px #10141c, -5px -5px 20px #424e72;
+  background: #171c27;
+  box-shadow: 5px 5px 21px #0c0f14, -5px -5px 21px #22293a;
 `;
